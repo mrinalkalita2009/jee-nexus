@@ -1,0 +1,399 @@
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE NEXUS by Mrinal</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1020;
+  color: #f1f5f9;
+}
+
+header {
+  background: #111a2e;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #26334d;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  color: #60a5fa;
+}
+
+.login {
+  background: #2563eb;
+  color: white;
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+main {
+  max-width: 1050px;
+  margin: auto;
+  padding: 22px;
+}
+
+.hero {
+  background: linear-gradient(120deg, #172c4e, #222047);
+  padding: 30px 22px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #bdc9dc;
+}
+
+h2 {
+  margin-top: 28px;
+  font-size: 21px;
+}
+
+.subjects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+}
+
+.subject {
+  padding: 20px 12px;
+  border-radius: 12px;
+  text-align: center;
+  background: #17233b;
+  border: 1px solid #293a59;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+.subject:hover,
+.subject.active {
+  border-color: #60a5fa;
+  background: #20385c;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.tool {
+  background: #17233b;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #293a59;
+}
+
+.tool p {
+  color: #9eacc3;
+  font-size: 13px;
+}
+
+.search {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid #334563;
+  border-radius: 9px;
+  background: #17233b;
+  color: white;
+  font-size: 15px;
+}
+
+.resources {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.resource {
+  background: #17233b;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #293a59;
+}
+
+.resource p {
+  color: #9eacc3;
+  font-size: 13px;
+}
+
+.resource button {
+  background: #2563eb;
+  color: white;
+  padding: 9px 13px;
+  border: 0;
+  border-radius: 7px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #71819b;
+  font-size: 12px;
+}
+
+@media(max-width:600px) {
+  .subjects {
+    grid-template-columns: 1fr;
+  }
+
+  .resources,
+  .tools {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">⚛ JEE NEXUS by Mrinal</div>
+  <button class="login" onclick="loginInfo()">
+    Student Login
+  </button>
+</header>
+
+<main>
+
+<section class="hero">
+  <p>YOUR JEE PREPARATION PLATFORM</p>
+  <h1>Learn. Practise. Achieve.</h1>
+  <p>
+    Everything you need for JEE Main
+    and Advanced, organised in one place.
+  </p>
+</section>
+
+<h2>Explore Subjects</h2>
+
+<section class="subjects">
+  <button class="subject active"
+    onclick="filterSubject('All', this)">
+    ⚛ All Subjects
+  </button>
+
+  <button class="subject"
+    onclick="filterSubject('Physics', this)">
+    🔵 Physics
+  </button>
+
+  <button class="subject"
+    onclick="filterSubject('Chemistry', this)">
+    🧪 Chemistry
+  </button>
+
+  <button class="subject"
+    onclick="filterSubject('Mathematics', this)">
+    📐 Mathematics
+  </button>
+</section>
+
+<h2>Learning Tools</h2>
+
+<section class="tools">
+  <div class="tool">
+    📚 <b>Notes & PDFs</b>
+    <p>Chapter-wise study materials.</p>
+  </div>
+
+  <div class="tool">
+    📝 <b>PYQ Practice</b>
+    <p>JEE Main and Advanced questions.</p>
+  </div>
+
+  <div class="tool">
+    🎥 <b>Lecture Library</b>
+    <p>Useful authorised lecture links.</p>
+  </div>
+
+  <div class="tool">
+    🤖 <b>AI Doubt Assistant</b>
+    <p>Explore AI-powered learning support.</p>
+  </div>
+</section>
+
+<h2>Study Resources</h2>
+
+<input
+  class="search"
+  id="searchBox"
+  type="text"
+  placeholder="Search chapters or subjects..."
+  oninput="searchResources()"
+/>
+
+<div class="resources" id="resourceList"></div>
+
+</main>
+
+<footer>
+  JEE NEXUS © 2026
+  <br><br>
+  Built for students, by students.
+</footer>
+
+<script>
+
+// Our sample study resources
+
+const resources = [
+  {
+    name: "Units and Dimensions",
+    subject: "Physics",
+    type: "Chapter Notes"
+  },
+  {
+    name: "Laws of Motion",
+    subject: "Physics",
+    type: "Practice Material"
+  },
+  {
+    name: "Chemical Bonding",
+    subject: "Chemistry",
+    type: "Chapter Notes"
+  },
+  {
+    name: "Organic Chemistry Basics",
+    subject: "Chemistry",
+    type: "Lecture Resources"
+  },
+  {
+    name: "Quadratic Equations",
+    subject: "Mathematics",
+    type: "Practice Material"
+  },
+  {
+    name: "Limits and Continuity",
+    subject: "Mathematics",
+    type: "Chapter Notes"
+  }
+];
+
+let selectedSubject = "All";
+
+// Display resources on the website
+
+function displayResources(data) {
+
+  const container =
+    document.getElementById("resourceList");
+
+  container.innerHTML = "";
+
+  if (data.length === 0) {
+    container.innerHTML =
+      "<p>No resources found.</p>";
+    return;
+  }
+
+  data.forEach(item => {
+
+    const card = document.createElement("div");
+
+    card.className = "resource";
+
+    const title = document.createElement("h3");
+    title.textContent = item.name;
+
+    const subject = document.createElement("p");
+    subject.textContent = item.subject;
+
+    const type = document.createElement("p");
+    type.textContent = item.type;
+
+    const button = document.createElement("button");
+    button.textContent = "View Resource";
+
+    button.onclick = function() {
+      alert("This is a sample resource. A real authorised PDF or lecture link will be added here.");
+    };
+
+    card.append(title, subject, type, button);
+    container.appendChild(card);
+
+  });
+}
+
+// Filter subjects
+
+function filterSubject(subject, button) {
+
+  selectedSubject = subject;
+
+  document.querySelectorAll(".subject")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  searchResources();
+}
+
+// Search resources
+
+function searchResources() {
+
+  const query =
+    document.getElementById("searchBox")
+    .value.toLowerCase();
+
+  const filtered = resources.filter(item => {
+
+    const matchesSubject =
+      selectedSubject === "All" ||
+      item.subject === selectedSubject;
+
+    const matchesSearch =
+      item.name.toLowerCase().includes(query) ||
+      item.subject.toLowerCase().includes(query) ||
+      item.type.toLowerCase().includes(query);
+
+    return matchesSubject && matchesSearch;
+
+  });
+
+  displayResources(filtered);
+}
+
+// Login is not implemented yet
+
+function loginInfo() {
+  alert(
+    "Student registration and secure login will be added in a future version."
+  );
+}
+
+// Load resources when website opens
+
+displayResources(resources);
+
+</script>
+
+</body>
+</html>
